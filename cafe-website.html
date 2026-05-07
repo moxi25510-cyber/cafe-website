@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>沁月咖啡 · Qinyue Café</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Ma+Shan+Zheng&family=Lato:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0e8;
+      --brown: #3b2314;
+      --mocha: #7a4a2e;
+      --gold: #c9a84c;
+      --light: #faf8f3;
+      --text: #2a1a0e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--light);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(245,240,232,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+    }
+    .logo {
+      font-family: 'Ma Shan Zheng', cursive;
+      font-size: 1.6rem; color: var(--brown); letter-spacing: 2px;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--mocha);
+      font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #2a1a0e 0%, #5c3320 50%, #7a4a2e 100%);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 6rem 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-sub {
+      font-size: 0.8rem; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      color: var(--cream); line-height: 1.1;
+      animation: fadeUp 0.8s 0.15s ease both;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold); }
+    .hero p {
+      max-width: 480px; margin: 1.5rem auto;
+      color: rgba(245,240,232,0.7); line-height: 1.8; font-weight: 300;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    .btn {
+      display: inline-block; margin-top: 1rem;
+      padding: 0.9rem 2.5rem;
+      background: var(--gold); color: var(--brown);
+      font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase;
+      text-decoration: none; font-weight: 700;
+      border: 2px solid var(--gold);
+      transition: all 0.3s;
+      animation: fadeUp 0.8s 0.45s ease both;
+    }
+    .btn:hover { background: transparent; color: var(--gold); }
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      color: rgba(245,240,232,0.4); font-size: 0.75rem; letter-spacing: 3px;
+      text-transform: uppercase; animation: bob 2s ease-in-out infinite;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 70vh;
+    }
+    .about-img {
+      background: linear-gradient(135deg, #4a2c1a, #7a4a2e);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8rem; padding: 4rem;
+    }
+    .about-text {
+      background: var(--cream); padding: 6rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .about-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem); color: var(--brown);
+      line-height: 1.2; margin-bottom: 1.5rem;
+    }
+    .about-text p { color: #6b5040; line-height: 1.9; font-weight: 300; margin-bottom: 1rem; }
+
+    /* ── MENU ── */
+    .menu {
+      background: var(--brown); padding: 6rem 3rem; text-align: center;
+    }
+    .menu h2 {
+      font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--cream); margin-bottom: 0.5rem;
+    }
+    .menu > p { color: rgba(245,240,232,0.5); margin-bottom: 3rem; }
+    .menu-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem; max-width: 1000px; margin: 0 auto;
+    }
+    .menu-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,168,76,0.2);
+      padding: 2rem; text-align: left;
+      transition: all 0.3s; cursor: default;
+    }
+    .menu-card:hover {
+      background: rgba(201,168,76,0.1);
+      border-color: var(--gold); transform: translateY(-4px);
+    }
+    .menu-emoji { font-size: 2rem; margin-bottom: 1rem; }
+    .menu-card h3 { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .menu-card p { color: rgba(245,240,232,0.6); font-size: 0.9rem; line-height: 1.7; }
+    .menu-card .price { color: var(--cream); font-size: 1rem; margin-top: 1rem; font-weight: 300; letter-spacing: 1px; }
+
+    /* ── HOURS ── */
+    .hours {
+      background: var(--cream); padding: 6rem 3rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      max-width: 900px; margin: 0 auto; align-items: center;
+    }
+    .hours h2 {
+      font-family: 'Playfair Display', serif; font-size: 2.5rem;
+      color: var(--brown); margin-bottom: 2rem;
+    }
+    .hours-list { list-style: none; }
+    .hours-list li {
+      display: flex; justify-content: space-between;
+      padding: 0.8rem 0; border-bottom: 1px solid rgba(122,74,46,0.15);
+      color: var(--mocha); font-size: 0.95rem;
+    }
+    .hours-list li span:last-child { font-weight: 300; color: #9a7060; }
+    .map-placeholder {
+      background: linear-gradient(135deg, #3b2314, #7a4a2e);
+      border-radius: 2px; padding: 3rem;
+      text-align: center; color: var(--cream);
+    }
+    .map-placeholder .icon { font-size: 3rem; margin-bottom: 1rem; }
+    .map-placeholder p { font-size: 0.85rem; color: rgba(245,240,232,0.7); line-height: 1.8; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1a0e07; color: rgba(245,240,232,0.5);
+      text-align: center; padding: 3rem;
+      font-size: 0.85rem; letter-spacing: 1px;
+    }
+    footer .footer-logo {
+      font-family: 'Ma Shan Zheng', cursive; font-size: 1.8rem;
+      color: var(--gold); margin-bottom: 0.5rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1rem; }
+      .about { grid-template-columns: 1fr; }
+      .about-img { padding: 3rem; font-size: 5rem; min-height: 250px; }
+      .about-text { padding: 3rem 2rem; }
+      .hours { grid-template-columns: 1fr; padding: 4rem 2rem; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 导航栏 -->
+  <nav>
+    <div class="logo">沁月咖啡</div>
+    <ul class="nav-links">
+      <li><a href="#about">关于</a></li>
+      <li><a href="#menu">菜单</a></li>
+      <li><a href="#hours">营业时间</a></li>
+    </ul>
+  </nav>
+
+  <!-- 首页大图 -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-sub">精品咖啡 · 手工甜品</p>
+      <h1>每一杯，<br/>都是 <em>故事</em></h1>
+      <p>我们精选全球单品豆，以手冲与意式萃取，为您呈现咖啡最纯粹的风味。</p>
+      <a href="#menu" class="btn">查看菜单</a>
+    </div>
+    <div class="scroll-hint">↓ 向下滚动</div>
+  </section>
+
+  <!-- 关于我们 -->
+  <section id="about" class="about">
+    <div class="about-img">☕</div>
+    <div class="about-text">
+      <p class="section-label">我们的故事</p>
+      <h2>一间有温度<br/>的咖啡馆</h2>
+      <p>2018年，我们在城市的小巷里开了第一家店。我们相信，好的咖啡不只是饮料，更是一段停下来的时光。</p>
+      <p>每位咖啡师都经过严格训练，每一颗咖啡豆都可追溯产地。我们与农场直接合作，确保品质与公平贸易。</p>
+    </div>
+  </section>
+
+  <!-- 菜单 -->
+  <section id="menu" class="menu">
+    <p class="section-label" style="color:var(--gold)">精选出品</p>
+    <h2>今日菜单</h2>
+    <p>手冲 · 意式 · 特调 · 甜品</p>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="menu-emoji">☕</div>
+        <h3>耶加雪菲手冲</h3>
+        <p>埃塞俄比亚日晒豆，带有蓝莓与茉莉花香，余韵悠长。</p>
+        <div class="price">¥ 38</div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-emoji">🥛</div>
+        <h3>丝绒拿铁</h3>
+        <p>浓缩咖啡与牛奶完美融合，奶泡绵密细腻，口感柔滑。</p>
+        <div class="price">¥ 32</div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-emoji">🍵</div>
+        <h3>抹茶欧蕾</h3>
+        <p>京都宇治抹茶，搭配燕麦奶，清新不苦涩，适合午后。</p>
+        <div class="price">¥ 35</div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-emoji">🧁</div>
+        <h3>伯爵茶磅蛋糕</h3>
+        <p>每日现烤，伯爵茶香浓郁，搭配柠檬糖霜，酸甜平衡。</p>
+        <div class="price">¥ 28</div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-emoji">🍫</div>
+        <h3>生巧克力挞</h3>
+        <p>72% 黑巧克力内馅，酥脆塔皮，每日限量20份。</p>
+        <div class="price">¥ 42</div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-emoji">🧊</div>
+        <h3>柚子气泡特调</h3>
+        <p>新鲜柚子汁 + 气泡水 + 冷萃咖啡，夏日限定特调。</p>
+        <div class="price">¥ 36</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 营业时间 -->
+  <section id="hours">
+    <div class="hours">
+      <div>
+        <p class="section-label">来访我们</p>
+        <h2>营业<br/>时间</h2>
+        <ul class="hours-list">
+          <li><span>周一 — 周五</span><span>08:00 – 21:00</span></li>
+          <li><span>周六</span><span>09:00 – 22:00</span></li>
+          <li><span>周日</span><span>10:00 – 20:00</span></li>
+          <li><span>节假日</span><span>以公告为准</span></li>
+        </ul>
+      </div>
+      <div class="map-placeholder">
+        <div class="icon">📍</div>
+        <p><strong style="color:var(--cream)">沁月咖啡</strong><br/>上海市静安区愚园路 188 号<br/><br/>📞 021-8888-9999<br/>📧 hello@qinyuecafe.com</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer>
+    <div class="footer-logo">沁月咖啡</div>
+    <p>© 2024 Qinyue Café · 用心出品，每杯皆故事</p>
+  </footer>
+
+</body>
+</html>
